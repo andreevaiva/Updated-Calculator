@@ -1,0 +1,131 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Main{
+    static JLabel  resultDisplay = new JLabel();
+
+
+    public static void main(String[] args) {
+        JLabel firstNumLabel;
+        JLabel secondNumLabel;
+        JTextField firstNumField;
+        JTextField secondNumField;
+
+        JFrame frame = new JFrame("My app");
+        frame.setSize(500, 400);
+        frame.setLayout(null);
+
+
+        firstNumLabel = new JLabel("First Number");
+        firstNumLabel.setBounds(10, 20, 100, 25);
+        frame.add(firstNumLabel);
+
+
+        firstNumField = new JTextField();
+        firstNumField.setBounds(120, 20, 165, 25);
+        frame.add(firstNumField);
+
+        secondNumLabel = new JLabel("Second Number");
+        secondNumLabel.setBounds(10, 60, 100, 25);
+        frame.add(secondNumLabel);
+
+
+        secondNumField = new JTextField();
+        secondNumField.setBounds(120, 60, 165, 25);
+        frame.add(secondNumField);
+
+
+        JButton add = new JButton("+");
+        add.setBounds(10, 100, 100, 100);
+        add.setBackground(Color.GRAY);
+        frame.add(add);
+
+
+        JButton subtract = new JButton("-");
+        subtract.setBounds(120, 100, 100, 100);
+        subtract.setBackground(Color.GRAY);
+        frame.add(subtract);
+
+
+        JButton multiply = new JButton("*");
+        multiply.setBounds(230, 100, 100, 100);
+        multiply.setBackground(Color.GRAY);
+        frame.add(multiply);
+
+
+        JButton divide = new JButton("/");
+        divide.setBounds(340, 100, 100, 100);
+        divide.setBackground(Color.GRAY);
+        frame.add(divide);
+
+
+        JLabel result = new JLabel("Result = ");
+        result.setBounds(10, 210, 100, 25);
+        result.setFont(new Font("Arial", Font.PLAIN, 12));
+        frame.add(result);
+
+        resultDisplay.setBounds(55, 210, 250, 25);
+        resultDisplay.setFont(new Font("Arial", Font.PLAIN, 12));
+        frame.add(resultDisplay);
+
+        JButton reset = new JButton("Reset");
+        reset.setBounds(10, 250, 100, 25);
+        reset.setBackground(Color.GRAY);
+        frame.add(reset);
+
+        frame.setVisible(true);
+
+        add.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                calculate(firstNumField, secondNumField, '+');
+            }
+        });
+        subtract.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                calculate(firstNumField, secondNumField, '-');
+            }
+        });
+        multiply.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                calculate(firstNumField, secondNumField, '*');
+            }
+        });
+        divide.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                calculate(firstNumField, secondNumField, '/');
+            }
+        });
+        reset.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                firstNumField.setText("");
+                secondNumField.setText("");
+                resultDisplay.setText("");
+            }
+        });
+    }
+    public static void calculate(JTextField first, JTextField second, char operation){
+        double num1 = Double.parseDouble(first.getText());
+        double num2 = Double.parseDouble(second.getText());
+        switch(operation){
+            case '+':
+                  resultDisplay.setText(String.valueOf(num1+num2));
+                  break;
+            case '-':
+                resultDisplay.setText(String.valueOf(num1-num2));
+                break;
+            case '*':
+                resultDisplay.setText(String.valueOf(num1*num2));
+                break;
+            case '/':
+                if(num2==0){
+                    resultDisplay.setText("ERROR! You cannot divide by zero!");
+                    break;
+                }
+                resultDisplay.setText(String.valueOf(num1/num2));
+                break;
+
+        }
+    }
+}
